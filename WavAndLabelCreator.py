@@ -1,13 +1,17 @@
+import pandas as pd
 from resemblyzer import preprocess_wav, VoiceEncoder
+from sklearn.cluster import KMeans
 from pathlib import Path
+from OptimalCluster.opticlust import Optimal
+
 import pickle
-from spectralcluster import SpectralClusterer
 
 SAMPLING_RATE = 16000
 encoder = VoiceEncoder()
 # IMPORTANT, update the address with yours (I should do it in a relative way or with parameters, but I
 # still haven't changed it
-GLOBAL_FILE_ADDRESS = "/home/icel/Desktop/ENPC/Bechdel-test/audio_res/male.wav"
+GLOBAL_FILE_ADDRESS = "C:\\Users\\micah\\Desktop\\Hackaton 2022\\Bechdel-test\\audio_res\\il-sappelle-just-leblanc.wav"
+
 
 def create_labelling(labels, wav_splits):
     times = [((s.start + s.stop) / 2) / SAMPLING_RATE for s in wav_splits]
@@ -40,15 +44,17 @@ def main():
     _, cont_embeds, wav_splits = encoder.embed_utterance(wav, return_partials=True, rate=16)
 
     # This does the cluster part of distinguishing the participants
-    clusterer = SpectralClusterer(
-        min_clusters=2,
-        max_clusters=100,
-        #p_percentile=0.90, I commented these two lines because it gives an error but they are in the paper
-        #gaussian_blur_sigma=1
-        )
 
-    labels = clusterer.predict(cont_embeds)
+    #Here we're looking for the number of clusters
+    opt = Optimal()
+    df=pd.DataFrame(cont_embeds)
+    opt_value=opt.silhouette(df)
+
+    #Use of Kmeans with the right amount of clusters
+    clusterer=KMeans(n_clusters=opt_value)
+    labels=clusterer.fit_predict(cont_embeds)
     labelling = create_labelling(labels, wav_splits)
+
 
     #  We save the raw objects (this is done to improve the speed of the debugging process, because all
     # these steps take a long time

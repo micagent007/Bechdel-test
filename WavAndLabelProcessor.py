@@ -8,7 +8,7 @@ import soundfile as sf
 SAMPLING_RATE = 16000
 # IMPORTANT, update the address with yours (I should do it in a relative way or with parameters, but I
 # still haven't changed it
-GLOBAL_FILE_ADDRESS = '/home/icel/Desktop/ENPC/Bechdel-test/processed_audio_res/'
+GLOBAL_FILE_ADDRESS = "C:\\Users\\micah\\Desktop\\Hackaton 2022\\Bechdel-test\\processed_audio_res\\"
 
 
 def main():
@@ -30,7 +30,7 @@ def main():
 
     c = 0
     for speech in speech_dif_audios.values():
-        sf.write(GLOBAL_FILE_ADDRESS + 'long_talk_cut_' + str(c) + '.wav', speech, 16000, 'PCM_16')
+        sf.write(GLOBAL_FILE_ADDRESS + 'many_voices_short_' + str(c) + '.wav', speech, 16000, 'PCM_16')
         c += 1
 
 
