@@ -1,12 +1,10 @@
 import pandas as pd
 from resemblyzer import preprocess_wav, VoiceEncoder
 from sklearn.cluster import KMeans
-from sklearn.mixture import GaussianMixture
 from pathlib import Path
 from OptimalCluster.opticlust import Optimal
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
-import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 
 import pickle
