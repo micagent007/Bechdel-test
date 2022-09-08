@@ -8,7 +8,7 @@ import soundfile as sf
 SAMPLING_RATE = 16000
 # IMPORTANT, update the address with yours (I should do it in a relative way or with parameters, but I
 # still haven't changed it
-GLOBAL_FILE_ADDRESS = '/home/icel/Desktop/ENPC/Bechdel-test/processed_audio_res/'
+GLOBAL_FILE_ADDRESS = '/home/icel/Desktop/ENPC/Hackathon/Bechdel-test/resources/processed_audio_res/'
 
 
 def main():
