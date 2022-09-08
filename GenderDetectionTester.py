@@ -7,8 +7,8 @@ import pickle
 warnings.simplefilter(action='ignore', category=FutureWarning)
 encoder = VoiceEncoder()
 
-# Here we write the absolute path to the test wav file
-wav_source = "/home/icel/Desktop/ENPC/Bachdel-test-data/moviesoundclips.net/moviesoundclips.net/626.wav"
+# Here we write the relative path to the test wav file
+wav_source = "resources/moviesoundclips.net/moviesoundclips.net/2.wav"
 
 #   Here we write the relative path to the gmm sources
 # (the ones we got with GenderDetectorTrainer)
@@ -22,7 +22,7 @@ def get_gmm(gmm_source):
 
 
 def process_file(source):
-    wav = preprocess_wav(source)
+    wav = preprocess_wav(os.path.abspath(source))
     vector = encoder.embed_utterance(wav, return_partials=False, rate=16)
     return vector
 

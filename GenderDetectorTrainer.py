@@ -11,8 +11,8 @@ encoder = VoiceEncoder()
 #  Here we have to put the training data (relative to the file)
 # This has to be a folder with .wav files of the male/female voices
 # respectively
-male_training_source = "AudioSet/male_clips"
-female_training_source = "AudioSet/female_clips"
+male_training_source = "resources/AudioSet/male_clips"
+female_training_source = "resources/AudioSet/female_clips"
 
 
 def get_features(source):

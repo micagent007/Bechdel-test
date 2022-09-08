@@ -1,4 +1,4 @@
 # Default ignored files
 .idea
-/audio_res/*
-/processed_audio_res/*
+.gitignore
+/resources/*
