@@ -1,8 +1,13 @@
 import pandas as pd
 from resemblyzer import preprocess_wav, VoiceEncoder
 from sklearn.cluster import KMeans
+from sklearn.mixture import GaussianMixture
 from pathlib import Path
 from OptimalCluster.opticlust import Optimal
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
 
 import pickle
 
@@ -10,7 +15,7 @@ SAMPLING_RATE = 16000
 encoder = VoiceEncoder()
 # IMPORTANT, update the address with yours (I should do it in a relative way or with parameters, but I
 # still haven't changed it
-GLOBAL_FILE_ADDRESS = "C:\\Users\\micah\\Desktop\\Hackaton 2022\\Bechdel-test\\audio_res\\il-sappelle-just-leblanc.wav"
+GLOBAL_FILE_ADDRESS = "C:\\Users\\micah\\Desktop\\Hackaton 2022\\Bechdel-test\\audio_res\\un-gars-une-fille-best-of-jalousie.wav"
 
 
 def create_labelling(labels, wav_splits):
@@ -45,13 +50,29 @@ def main():
 
     # This does the cluster part of distinguishing the participants
 
-    #Here we're looking for the number of clusters
-    opt = Optimal()
+    #Here we're looking for the optimal number of clusters i.e. the amount of people talking
+
+    #we create the set of data from mel's spectrogram
+    opt = Optimal({'max_iter':200})
     df=pd.DataFrame(cont_embeds)
-    opt_value=opt.silhouette(df)
+
+    #we normalize this set of data in order to give an equal weight to each data
+    scalar = StandardScaler()
+    df_scaled = pd.DataFrame(scalar.fit_transform(df),columns=df.columns)
+
+    #we project the set of data that are currently on a 256 dimensionnal space to a
+    #2D plane in order to visualize the gathering of data
+    pca = PCA(n_components=2)
+    df_pca=pd.DataFrame(pca.fit_transform(df_scaled))
+    plt.scatter(df_pca[0],df_pca[1],marker="+")
+    plt.show()
+
+    #using this new 2D set of data we're able to compute the optimal
+    #amount of cluster i.e. the amount of characters in the discussion
+    opt_value1=opt.elbow(df_pca)
 
     #Use of Kmeans with the right amount of clusters
-    clusterer=KMeans(n_clusters=opt_value)
+    clusterer=KMeans(n_clusters=opt_value1)
     labels=clusterer.fit_predict(cont_embeds)
     labelling = create_labelling(labels, wav_splits)
 
