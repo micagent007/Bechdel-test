@@ -1,14 +1,27 @@
-In this repo we have:
+To run the file, 
 
-- audio_res: File sources (some random mp3/wav files to test with)
+- Install all libraries
 
-- WavAndLabelCreator.py: This code creates a wav and Label raw objects. They are the processed audio (an ndArray) and the labels with "who talked when" (an array of 
-touples)
+- If there are not any gmm's, you have to add the training data in the package (this can be done by adding the contents of this drive
+https://drive.google.com/drive/folders/1TpXdHmjglwLXyioNUKnr8edXmmdXblbW?usp=sharing in the same folder as the main file)
 
-- WavAndLabelProcessor.py: This code will process the wav and Label to for example, create a wav file for each person with all they said
+- In main you have to write the absolute address to the wav file to analyse (modifying wav_files_address) and add a resources/processed_audio_res
+folder if not already done
+ 
+- Finally you can run the code to obtain the wav split by different voices (indicating gender) in resource/processed_audio_res, and the film in the same package
 
-- main2: just ignore it for now, it was an experiment
 
-- rawObjects: We will create the rawObjects here
+WARNING:
+- If the FilmCreator libraries give problems, the Film creator file can be removed/ignored
+- The addresses can give problems (they were based in Linux, so there may be problems with "/" vs "\\")
+- It is crutial to have the resources/processed_audio_res in the package, so it is recommended to directly paste the resources file obtained from the drive to the
+package before starting
 
-- processesed_audio_res: We will put the processed audio here
+
+The data used will be in the following drive folder:
+https://drive.google.com/drive/folders/1TpXdHmjglwLXyioNUKnr8edXmmdXblbW?usp=sharing
+
+The power point presentation:
+https://enpcfr-my.sharepoint.com/:p:/g/personal/arthur_bresnu_enpc_fr/Ebjvof8cWLhCiFmlLvVtksQBNqz2-8KxOnXkDSS7hlY3lg?rtime=972C9jCS2kg
+
+

@@ -1,0 +1,6 @@
+# Default ignored files
+.idea
+.gitignore
+/resources/*
+processed_film.mp4
+
